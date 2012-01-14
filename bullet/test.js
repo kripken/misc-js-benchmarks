@@ -85,7 +85,7 @@ function benchmark() {
     bodies.forEach(function(body, j) {
       if (body.getMotionState()) {
         body.getMotionState().getWorldTransform(trans);
-        if (i % 10 == 0 && j % 10 == 5) print(i + ' : ' + [trans.getOrigin().x().toFixed(2), trans.getOrigin().y().toFixed(2), trans.getOrigin().z().toFixed(2)]);
+        if (i % 30 == 0 && j % 10 == 5) print(i + ' : ' + [trans.getOrigin().x().toFixed(2), trans.getOrigin().y().toFixed(2), trans.getOrigin().z().toFixed(2)]);
       }
     });
   }
