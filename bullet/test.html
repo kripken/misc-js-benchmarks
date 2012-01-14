@@ -1,0 +1,19 @@
+<html>
+  <body>
+    <script src="ammo.js"></script>
+    <div id='output'></div>
+    <hr>
+    <script type='text/javascript'>
+      var Module = {
+        print: (function() {
+          var element = document.getElementById('output');
+          return function(text) {
+            element.innerHTML += text.replace('\n', '<br>', 'g') + '<br>';
+          };
+        })()
+      };
+    </script>
+    <script src="test.js"></script>
+  </body>
+</html>
+
