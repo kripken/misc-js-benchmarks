@@ -6,5 +6,6 @@ To run java benchmarks on phone:
   adb shell dalvikvm -cp /data/opt/X.jar helloworld
 
 To run js benchmarks on phone:
+
   LD_LIBRARY_PATH=. time ./js -m -n X.js
 
