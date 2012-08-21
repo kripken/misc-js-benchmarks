@@ -10,6 +10,8 @@ function kb() {
 
 var Vb = [], xc = typeof process === "object", Ec = typeof window === "object", Fc = typeof importScripts === "function", Pc = !Ec && !xc && !Fc;
 
+var OUTPUT;
+
 if (xc) {
   print = (function(c) {
     process.stdout.write(c + "\n");
@@ -28,7 +30,7 @@ if (xc) {
   Pc ? (this.read || (read = (function(c) {
     snarf(c);
   })), Vb = this.arguments ? arguments : scriptArgs) : Ec ? (print = printErr = (function(c) {
-    console.log(c);
+    OUTPUT = c;
   }), read = (function(c) {
     var d = new XMLHttpRequest;
     d.open("GET", c, !1);
@@ -10728,6 +10730,8 @@ function GG(c) {
   return d;
 }
 
+var startTime = Date.now();
+
 Module.run = GG;
 
 Module.preRun && Module.preRun();
@@ -10735,3 +10739,6 @@ Module.preRun && Module.preRun();
 Module.noInitialRun || GG();
 
 Module.postRun && Module.postRun();
+
+document.write(OUTPUT + ' ms per frame, total time: ' + (Date.now() - startTime) + ' ms.');
+
