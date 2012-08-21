@@ -75,14 +75,18 @@ function benchmark() {
 
   var startTime = Date.now();
 
+  for (var i = 0; i < 250; i++) {
+    dynamicsWorld.stepSimulation(1/60, 10); // Startup
+  }
+
   if (TEST_MEMORY) malloc(5*1024*1024); // stress memory usage
 
-  for (var i = 0; i < 450; i++) {
+  for (var i = 0; i < 1250; i++) {
     if (i === 250 && TEST_MEMORY) memoryStart = readMemoryCeiling();
 
     dynamicsWorld.stepSimulation(1/60, 10);
     
-    bodies.forEach(function(body, j) {
+    if (0) bodies.forEach(function(body, j) {
       if (body.getMotionState()) {
         body.getMotionState().getWorldTransform(trans);
         if (i % 30 == 0 && j % 10 == 5) print(i + ' : ' + [trans.getOrigin().x().toFixed(2), trans.getOrigin().y().toFixed(2), trans.getOrigin().z().toFixed(2)]);
