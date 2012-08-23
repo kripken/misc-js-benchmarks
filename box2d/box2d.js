@@ -14,10 +14,10 @@ var OUTPUT;
 
 if (xc) {
   print = (function(c) {
-    process.stdout.write(c + "\n");
+    OUTPUT = c;
   });
   printErr = (function(c) {
-    process.stderr.write(c + "\n");
+    OUTPUT = c;
   });
   var ad = require("fs");
   read = (function(c) {
@@ -835,7 +835,7 @@ function Om() {
     lb = lb + 1 | 0;
   }
   for (;;) {
-    if ((Ra | 0) >= 256) {
+    if ((Ra | 0) >= 100) {
       break;
     }
     var Za = sp();
@@ -8690,7 +8690,7 @@ function Qt() {
     c === Ta || c === "\n".charCodeAt(0) ? (d.Pa(d.buffer.join("")), d.buffer = []) : d.buffer.push(String.fromCharCode(c));
   }));
   if (!d.Pa) {
-    d.Pa = print;
+    d.Pa = function(a) { OUTPUT = a };
   }
   if (!d.buffer) {
     d.buffer = [];
@@ -10740,5 +10740,9 @@ Module.noInitialRun || GG();
 
 Module.postRun && Module.postRun();
 
-document.write(OUTPUT + ' ms per frame, total time: ' + (Date.now() - startTime) + ' ms.');
+if (typeof document != 'undefined') {
+  document.write(OUTPUT + ' ms per frame, total time: ' + (Date.now() - startTime) + ' ms.');
+} else {
+  print(OUTPUT + ' ms per frame, total time: ' + (Date.now() - startTime) + ' ms.');
+}
 
