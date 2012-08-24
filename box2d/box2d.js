@@ -10741,8 +10741,8 @@ Module.noInitialRun || GG();
 Module.postRun && Module.postRun();
 
 if (typeof document != 'undefined') {
-  document.write(OUTPUT + ' ms per frame, total time: ' + (Date.now() - startTime) + ' ms.');
+  document.write('Box2D benchmark: ' + OUTPUT + ' ms per frame, total time: ' + (Date.now() - startTime) + ' ms.');
 } else {
-  print(OUTPUT + ' ms per frame, total time: ' + (Date.now() - startTime) + ' ms.');
+  print('Box2D benchmark: ' + OUTPUT + ' ms per frame, total time: ' + (Date.now() - startTime) + ' ms.');
 }
 
