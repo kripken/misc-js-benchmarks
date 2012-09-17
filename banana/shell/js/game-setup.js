@@ -86,7 +86,8 @@ var document = {
   getElementById: function(id) {
     switch(id) {
       case 'canvas': {
-        return {
+        if (this.canvas) return this.canvas;
+        return this.canvas = {
           getContext: function(which) {
             switch(which) {
               case 'experimental-webgl': {
@@ -650,6 +651,9 @@ var document = {
                   bindRenderbuffer: function(){},
                   renderbufferStorage: function(){},
                   framebufferRenderbuffer: function(){},
+                  scissor: function(){},
+                  colorMask: function(){},
+                  lineWidth: function(){},
                 };
               }
               case '2d': {
@@ -668,18 +672,23 @@ var document = {
             }
           },
           requestPointerLock: function() {
-            document.callEventListeners('pointerlockchange');
+            document.pointerLockElement = document.getElementById('canvas');
+            window.setTimeout(function() {
+              document.callEventListeners('pointerlockchange');
+            });
           },
           style: {},
           eventListeners: {},
           addEventListener: document.addEventListener,
           callEventListeners: document.callEventListeners,
           requestFullScreen: function() {
-            var that = this;
+            document.fullscreenElement = document.getElementById('canvas');
             window.setTimeout(function() {
-              that.callEventListeners('fullscreenchange');
+              document.callEventListeners('fullscreenchange');
             });
           },
+          offsetTop: 0,
+          offsetLeft: 0,
         };
       }
       case 'status-text': case 'progress': {
@@ -836,10 +845,10 @@ var Worker = function(workerPath) {
 Worker.id = 0;
 Worker.messageId = 0;
 var screen = {
-  width: 800,
-  height: 600,
-  availWidth: 800,
-  availHeight: 600,
+  width: 2100,
+  height: 1313,
+  availWidth: 2100,
+  availHeight: 1283,
 };
 var console = {
   log: function(x) {
