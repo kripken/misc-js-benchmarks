@@ -2,7 +2,10 @@
 
 var shell = typeof window == 'undefined';
 
-if (shell) load('game/headless.js');
+if (shell) {
+  load('game/headless.js');
+  load('game/headlessCanvas.js');
+}
 
 if (typeof pageParams === 'undefined') {
   var pageParams = window.location.search || '';
@@ -46,7 +49,7 @@ var Module = {
   printErr: function(text) {
     console.log(text);
   },
-  canvas: document.getElementById('canvas'),
+  canvas: checkPageParam('headlessCanvas') ? headlessCanvas() : document.getElementById('canvas'),
   statusMessage: 'Starting...',
   progressElement: document.getElementById('progress'),
   setStatus: function(text) {
@@ -84,16 +87,16 @@ var Module = {
       Module.setOpacity(1);
       Module.setStatus('');
       document.querySelector('.status .ingame').classList.add( 'hide' );
-      document.querySelector('canvas').classList.remove( 'paused' );
-      document.querySelector('canvas').classList.remove( 'hide' );
+      Module.canvas.classList.remove( 'paused' );
+      Module.canvas.classList.remove( 'hide' );
       //BananaBread.execute('musicvol $oldmusicvol'); // XXX TODO: need to restart the music by name here
     } else {
       Module.pauseMainLoop();
       Module.setOpacity(0.333);
       Module.setStatus('<b>paused (enter fullscreen to resume)</b>');
-      document.querySelector('canvas').classList.add( 'paused' );
+      Module.canvas.classList.add( 'paused' );
       document.querySelector('.status .ingame').classList.remove( 'hide' );
-      document.querySelector('canvas').classList.add( 'hide' );
+      Module.canvas.classList.add( 'hide' );
       //BananaBread.execute('oldmusicvol = $musicvol ; musicvol 0');
     }
   }
@@ -122,11 +125,20 @@ if (Module.benchmark) {
       window.stopped = true;
       Browser.mainLoop.pause();
 
+      // show results
+      Module.canvas.classList.add('hide');
+      var results = '';
       var end = Date.realNow();
-      Module.print('finished, times:');
-      Module.print('  preload : ' + (Module.startupStartTime - preloadStartTime)/1000 + ' seconds');
-      Module.print('  startup : ' + (Module.gameStartTime - Module.startupStartTime)/1000 + ' seconds');
-      Module.print('  gameplay: ' + (end - Module.gameStartTime)/1000 + ' seconds');
+      results += 'finished, times:\n';
+      results += '  preload : ' + (Module.startupStartTime - preloadStartTime)/1000 + ' seconds\n';
+      results += '  startup : ' + (Module.gameStartTime - Module.startupStartTime)/1000 + ' seconds\n';
+      results += '  gameplay: ' + (end - Module.gameStartTime)/1000 + ' seconds\n';
+      if (window.headless) {
+        Module.print(results);
+      } else {
+        document.getElementById('main_text').classList.remove('hide');
+        document.getElementById('main_text').innerHTML = results.replace(/\n/g, '<br>');
+      }
     } else if (iter % 333 == 5) {
       BananaBread.execute('nextfollow');
     }
@@ -145,6 +157,7 @@ if (Module.benchmark) {
     document.querySelector('.status-content.error').classList.remove('hide');
     Module.failed = true;
   }
+  if (checkPageParam('headlessCanvas')) return;
   try {
     var canvas = document.createElement('canvas');
   } catch(e){}
@@ -248,7 +261,6 @@ Module.postLoadWorld = function() {
 
   if (checkPageParam('windowed')) {
     Module.isFullScreen = 1;
-    document.querySelector('canvas').classList.remove('hide');
     Module.requestFullScreen = function() {
       setTimeout(function() {
         Module.onFullScreen(1);
@@ -274,7 +286,7 @@ Module.postLoadWorld = function() {
 
     Module.fullscreenLow = function() {
       document.querySelector('.status-content.fullscreen-buttons').classList.add('hide');
-      document.querySelector('canvas').classList.remove('hide');
+      Module.canvas.classList.remove('hide');
       Module.requestFullScreen();
       Module.setOpacity(1);
       Module.setStatus('');
@@ -284,7 +296,7 @@ Module.postLoadWorld = function() {
 
     Module.fullscreenHigh = function() {
       document.querySelector('.status-content.fullscreen-buttons').classList.add('hide');
-      document.querySelector('canvas').classList.remove('hide');
+      Module.canvas.classList.remove('hide');
       Module.requestFullScreen();
       Module.setOpacity(1);
       Module.setStatus('');
@@ -303,6 +315,8 @@ Module.postLoadWorld = function() {
   if (Module.benchmark) {
     Module.print('<< start game >>');
     Module.gameStartTime = Date.realNow();
+    if (!window.headless) document.getElementById('main_text').classList.add('hide');
+    Module.canvas.classList.remove('hide');
   }
 };
 
