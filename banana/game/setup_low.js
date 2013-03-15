@@ -7,6 +7,10 @@ Module.setPlayerModels = function() {
 Module.tweakDetail = function() {
   BananaBread.execute('fog 10000'); // disable fog
   BananaBread.execute('maxdebris 10');
+  if (Module.benchmark) {
+    BananaBread.execute('shaderdetail 1');
+    BananaBread.execute('maxdynlights 0');
+  }
 };
 
 Module.loadDefaultMap = function() {
