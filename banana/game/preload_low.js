@@ -1192,223 +1192,223 @@ Module['FS_createPath']('/packages/gk/fantasy', 'skyfantasyJPG', true, true);
       var curr;
       
         curr = DataRequest.prototype.requests['packages/base/colos.ogz'];
-        curr.response = byteArray.subarray(0,554042);
+        curr.response = byteArray.subarray(0,554088);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/base/colos.cfg'];
-        curr.response = byteArray.subarray(554042,555197);
+        curr.response = byteArray.subarray(554088,555243);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/base/colos.wpt'];
-        curr.response = byteArray.subarray(555197,566661);
+        curr.response = byteArray.subarray(555243,566707);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/models/ffflag/md5.cfg'];
-        curr.response = byteArray.subarray(566661,566913);
+        curr.response = byteArray.subarray(566707,566959);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/models/ffflag/ffflag_nm.dds'];
-        curr.response = byteArray.subarray(566913,721746);
+        curr.response = byteArray.subarray(566959,721792);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/models/ffflag/ffflag_sc.dds'];
-        curr.response = byteArray.subarray(721746,878359);
+        curr.response = byteArray.subarray(721792,878405);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/models/ffflag/ffflag_cc.dds'];
-        curr.response = byteArray.subarray(878359,1050112);
+        curr.response = byteArray.subarray(878405,1050158);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/models/ffflag/ffflag.md5mesh'];
-        curr.response = byteArray.subarray(1050112,1073533);
+        curr.response = byteArray.subarray(1050158,1073579);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/models/ffflag/ffflag.md5anim'];
-        curr.response = byteArray.subarray(1073533,1165288);
+        curr.response = byteArray.subarray(1073579,1165334);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/models/ffpit/md5.cfg'];
-        curr.response = byteArray.subarray(1165288,1165568);
+        curr.response = byteArray.subarray(1165334,1165614);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/models/ffpit/ffpit_01_gk_nm.dds'];
-        curr.response = byteArray.subarray(1165568,1232855);
+        curr.response = byteArray.subarray(1165614,1232901);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/models/ffpit/ffpit_01_gk_cc.dds'];
-        curr.response = byteArray.subarray(1232855,1300851);
+        curr.response = byteArray.subarray(1232901,1300897);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/models/ffpit/ffpit_01_gk_sc.dds'];
-        curr.response = byteArray.subarray(1300851,1366161);
+        curr.response = byteArray.subarray(1300897,1366207);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/models/ffpit/ffpit.md5mesh'];
-        curr.response = byteArray.subarray(1366161,1411358);
+        curr.response = byteArray.subarray(1366207,1411404);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/rock_formation_gk_v01/package.cfg'];
-        curr.response = byteArray.subarray(1411358,1411797);
+        curr.response = byteArray.subarray(1411404,1411843);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/wooden_roof_tiles_gk_v01/package.cfg'];
-        curr.response = byteArray.subarray(1411797,1412595);
+        curr.response = byteArray.subarray(1411843,1412641);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/iron_trim_gk_v01/package.cfg'];
-        curr.response = byteArray.subarray(1412595,1413267);
+        curr.response = byteArray.subarray(1412641,1413313);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/stone_ground_tiles_gk_v01/package.cfg'];
-        curr.response = byteArray.subarray(1413267,1413738);
+        curr.response = byteArray.subarray(1413313,1413784);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_wall_gk_v03/package.cfg'];
-        curr.response = byteArray.subarray(1413738,1414457);
+        curr.response = byteArray.subarray(1413784,1414503);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/package.cfg'];
-        curr.response = byteArray.subarray(1414457,1414881);
+        curr.response = byteArray.subarray(1414503,1414927);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/stone_ground_gk_v01/package.cfg'];
-        curr.response = byteArray.subarray(1414881,1415304);
+        curr.response = byteArray.subarray(1414927,1415350);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/rock_formation_gk_v02/package.cfg'];
-        curr.response = byteArray.subarray(1415304,1415743);
+        curr.response = byteArray.subarray(1415350,1415789);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/iron_plates_gk_v01/package.cfg'];
-        curr.response = byteArray.subarray(1415743,1416445);
+        curr.response = byteArray.subarray(1415789,1416491);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_wall_gk_v01/package.cfg'];
-        curr.response = byteArray.subarray(1416445,1417164);
+        curr.response = byteArray.subarray(1416491,1417210);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/wooden_planks_gk_v01/package.cfg'];
-        curr.response = byteArray.subarray(1417164,1417898);
+        curr.response = byteArray.subarray(1417210,1417944);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_plaster_gk_v01/package.cfg'];
-        curr.response = byteArray.subarray(1417898,1418345);
+        curr.response = byteArray.subarray(1417944,1418391);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_wall_gk_v02/package.cfg'];
-        curr.response = byteArray.subarray(1418345,1419064);
+        curr.response = byteArray.subarray(1418391,1419110);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/iron_intersection_gk_v01/package.cfg'];
-        curr.response = byteArray.subarray(1419064,1419523);
+        curr.response = byteArray.subarray(1419110,1419569);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_wall_trim_gk_v01/package.cfg'];
-        curr.response = byteArray.subarray(1419523,1420322);
+        curr.response = byteArray.subarray(1419569,1420368);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/rock_formation_gk_v01/rock_formation_gk_v01_cc.dds'];
-        curr.response = byteArray.subarray(1420322,1538927);
+        curr.response = byteArray.subarray(1420368,1538973);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/rock_formation_gk_v01/rock_formation_gk_v01_nm.dds'];
-        curr.response = byteArray.subarray(1538927,1557785);
+        curr.response = byteArray.subarray(1538973,1557831);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_wall_gk_v01/castell_wall_gk_v01_cc.dds'];
-        curr.response = byteArray.subarray(1557785,1588669);
+        curr.response = byteArray.subarray(1557831,1588715);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_wall_gk_v01/castell_wall_gk_v01_nm.dds'];
-        curr.response = byteArray.subarray(1588669,1619096);
+        curr.response = byteArray.subarray(1588715,1619142);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_wall_gk_v02/castell_wall_gk_v02_cc.dds'];
-        curr.response = byteArray.subarray(1619096,1649479);
+        curr.response = byteArray.subarray(1619142,1649525);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_wall_gk_v02/castell_wall_gk_v02_nm.dds'];
-        curr.response = byteArray.subarray(1649479,1668100);
+        curr.response = byteArray.subarray(1649525,1668146);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_wall_trim_gk_v01/castell_wall_trim_gk_v01_cc.dds'];
-        curr.response = byteArray.subarray(1668100,1682962);
+        curr.response = byteArray.subarray(1668146,1683008);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_wall_trim_gk_v01/castell_wall_trim_gk_v01_nm.dds'];
-        curr.response = byteArray.subarray(1682962,1697041);
+        curr.response = byteArray.subarray(1683008,1697087);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/stone_ground_tiles_gk_v01/stone_ground_tiles_gk_v01_cc.dds'];
-        curr.response = byteArray.subarray(1697041,1816163);
+        curr.response = byteArray.subarray(1697087,1816209);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/stone_ground_tiles_gk_v01/stone_ground_tiles_gk_v01_nm.dds'];
-        curr.response = byteArray.subarray(1816163,1847248);
+        curr.response = byteArray.subarray(1816209,1847294);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/wooden_planks_gk_v01/wooden_planks_gk_v01_cc.dds'];
-        curr.response = byteArray.subarray(1847248,1876136);
+        curr.response = byteArray.subarray(1847294,1876182);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/wooden_planks_gk_v01/wooden_planks_gk_v01_nm.dds'];
-        curr.response = byteArray.subarray(1876136,1904443);
+        curr.response = byteArray.subarray(1876182,1904489);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_plaster_gk_v01/castell_plaster_gk_v01_cc.dds'];
-        curr.response = byteArray.subarray(1904443,1935308);
+        curr.response = byteArray.subarray(1904489,1935354);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/castell_plaster_gk_v01/castell_plaster_gk_v01_nm.dds'];
-        curr.response = byteArray.subarray(1935308,1965751);
+        curr.response = byteArray.subarray(1935354,1965797);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/iron_plates_gk_v01/iron_plates_gk_v01_cc.dds'];
-        curr.response = byteArray.subarray(1965751,2030803);
+        curr.response = byteArray.subarray(1965797,2030849);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/iron_plates_gk_v01/iron_plates_gk_v01_nm.dds'];
-        curr.response = byteArray.subarray(2030803,2095956);
+        curr.response = byteArray.subarray(2030849,2096002);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/iron_trim_gk_v01/iron_trim_gk_v01_cc.dds'];
-        curr.response = byteArray.subarray(2095956,2110822);
+        curr.response = byteArray.subarray(2096002,2110868);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/iron_trim_gk_v01/iron_trim_gk_v01_nm.dds'];
-        curr.response = byteArray.subarray(2110822,2125528);
+        curr.response = byteArray.subarray(2110868,2125574);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/iron_intersection_gk_v01/iron_intersection_gk_v01_cc.dds'];
-        curr.response = byteArray.subarray(2125528,2132991);
+        curr.response = byteArray.subarray(2125574,2133037);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/iron_intersection_gk_v01/iron_intersection_gk_v01_nm.dds'];
-        curr.response = byteArray.subarray(2132991,2162083);
+        curr.response = byteArray.subarray(2133037,2162129);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/skyfantasyJPG/skyfantasy_dn.jpg'];
-        curr.response = byteArray.subarray(2162083,2347534);
+        curr.response = byteArray.subarray(2162129,2347580);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/skyfantasyJPG/skyfantasy_rt.jpg'];
-        curr.response = byteArray.subarray(2347534,2496973);
+        curr.response = byteArray.subarray(2347580,2497019);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/skyfantasyJPG/skyfantasy_up.jpg'];
-        curr.response = byteArray.subarray(2496973,2579814);
+        curr.response = byteArray.subarray(2497019,2579860);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/skyfantasyJPG/skyfantasy_bk.jpg'];
-        curr.response = byteArray.subarray(2579814,2736260);
+        curr.response = byteArray.subarray(2579860,2736306);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/skyfantasyJPG/skyfantasy_ft.jpg'];
-        curr.response = byteArray.subarray(2736260,2890095);
+        curr.response = byteArray.subarray(2736306,2890141);
         curr.onload();
       
         curr = DataRequest.prototype.requests['packages/gk/fantasy/skyfantasyJPG/skyfantasy_lf.jpg'];
-        curr.response = byteArray.subarray(2890095,3039157);
+        curr.response = byteArray.subarray(2890141,3039203);
         curr.onload();
                 Module['removeRunDependency']('datafile_low.data');
 
