@@ -113,13 +113,21 @@ if (Module.benchmark) {
     } });
   });
 
+  Module.benchmark.progressTick = Math.floor(Module.benchmark.totalIters / 100);
+
+  Module.preMainLoop = function() {
+    if (Module.gameStartTime) Module.frameStartTime = Date.realNow();
+  };
+
   Module.postMainLoop = function() {
+    if (Module.gameStartTime) Module.gameTotalTime += Date.realNow() - Module.frameStartTime;
+
     var iter = Module.benchmark.iter++;
     if (iter == 1) {
       Module.progressElement.hidden = false;
       Module.progressElement.max = Module.benchmark.totalIters;
       BananaBread.execute('spectator 1 ; nextfollow'); // do not get shot at by bots
-    } else if (iter % 10 == 1) {
+    } else if (iter % Module.benchmark.progressTick == 1) {
       Module.progressElement.value = iter; // TODO: check if this affects performance
     } else if (iter >= Module.benchmark.totalIters) {
       window.stopped = true;
@@ -132,7 +140,8 @@ if (Module.benchmark) {
       results += 'finished, times:\n';
       results += '  preload : ' + (Module.startupStartTime - preloadStartTime)/1000 + ' seconds\n';
       results += '  startup : ' + (Module.gameStartTime - Module.startupStartTime)/1000 + ' seconds\n';
-      results += '  gameplay: ' + (end - Module.gameStartTime)/1000 + ' seconds\n';
+      results += '  gameplay: ' + (end - Module.gameStartTime)/1000 + ' total seconds\n';
+      results += '  gameplay: ' + Module.gameTotalTime/1000 + ' JS seconds\n';
       if (window.headless) {
         Module.print(results);
       } else {
@@ -260,10 +269,12 @@ Module.postLoadWorld = function() {
   }, 1); // Do after startup finishes so music will be prepared up
 
   if (checkPageParam('windowed')) {
+    Module.canvas.classList.remove('hide');
     Module.isFullScreen = 1;
     Module.requestFullScreen = function() {
       setTimeout(function() {
         Module.onFullScreen(1);
+        Module.canvas.classList.remove('hide');
       }, 0);
     }
   }
@@ -315,6 +326,7 @@ Module.postLoadWorld = function() {
   if (Module.benchmark) {
     Module.print('<< start game >>');
     Module.gameStartTime = Date.realNow();
+    Module.gameTotalTime = 0;
     if (!window.headless) document.getElementById('main_text').classList.add('hide');
     Module.canvas.classList.remove('hide');
   }
@@ -554,7 +566,6 @@ function CameraPath(data) { // TODO: namespace this
           loadChildScript('game/preload_character.js', function() {
             loadChildScript('game/preload_' + preload + '.js', function() {
               var scriptParts = ['bb'];
-              if (checkPageParam('asm')) scriptParts.push('asm');
               if (checkPageParam('debug')) scriptParts.push('debug');
               loadChildScript('game/' + scriptParts.join('.') + '.js');
             });
