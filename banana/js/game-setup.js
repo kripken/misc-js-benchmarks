@@ -106,6 +106,8 @@ if (Module.benchmark) {
   Module.print('<< start preload >>');
   preloadStartTime = Date.realNow();
 
+  Module.doNotCaptureKeyboard = true;
+
   Module.preRun.push(function() {
     __ATMAIN__.push({ func: function() {
       Module.print('<< start startup >>');
