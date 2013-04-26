@@ -22,14 +22,12 @@ var window = {
 
   headless: true,
   fakeWorkers: {
-    'crunch-worker.js': function(data, onmessage) {
-      onmessage({
-        data: {
-          filename: data.filename,
-          data: data.data,
-          callbackID: data.callbackID,
-          time: 0
-        }
+    'crunch-worker.js': function(data, postMessage) {
+      postMessage({
+        filename: data.filename,
+        data: data.data,
+        callbackID: data.callbackID,
+        time: 0
       });
     }
   },
@@ -255,7 +253,7 @@ var Worker = function(workerPath) {
       headlessPrint('worker ' + workerPath + ' receiving message ' + msg.messageId);
       var start = Date.realNow();
       if (workerPath in window.fakeWorkers) {
-        window.fakeWorkers[workerPath](msg, onmessage);
+        window.fakeWorkers[workerPath](msg, postMessage);
       } else {
         onmessage({ data: duplicateJSON(msg) });
       }
