@@ -33,10 +33,21 @@ if (checkPageParam('deterministic')) {
   })();
 }
 
+var commandlineArgs = (typeof arguments != 'undefined') ? arguments : [];
+
 var Module = {
   // If the url has 'serve' in it, run a listen server and let others connect to us
   arguments: checkPageParam('serve') ? ['-d1', '-j28780'] : [],
-  benchmark: checkPageParam('benchmark') ? { totalIters: 2000, iter: 0 } : null,
+  benchmark: checkPageParam('benchmark') ? { totalIters: (function() {
+    var arg = typeof commandlineArgs[0] == 'string' ? parseInt(commandlineArgs[0]) : -1;
+    switch(arg) {
+      case 0: return 1;
+      case 1: return 100;
+      case 2: return 400;
+      case 3: return 800;
+      default: return 2000;
+    }
+  })(), iter: 0 } : null,
   failed: false,
   preRun: [],
   postRun: [],
