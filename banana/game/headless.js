@@ -5,7 +5,7 @@
 //== HEADLESS ==//
 
 var headlessPrint = function(x) {
-  //print(x);
+  print(x);
 }
 
 var window = {
@@ -241,7 +241,9 @@ var Worker = function(workerPath) {
     headlessPrint('main thread sending message ' + msg.messageId + ' to worker ' + workerPath);
     window.setTimeout(function() {
       headlessPrint('worker ' + workerPath + ' receiving message ' + msg.messageId);
+      var start = Date.realNow();
       onmessage({ data: duplicateJSON(msg) });
+      headlessPrint('worker ' + workerPath + ' took ' + (Date.realNow() - start) + ' ms');
     });
   };
   var thisWorker = this;
@@ -250,7 +252,9 @@ var Worker = function(workerPath) {
     headlessPrint('worker ' + workerPath + ' sending message ' + msg.messageId);
     window.setTimeout(function() {
       headlessPrint('main thread receiving message ' + msg.messageId + ' from ' + workerPath);
+      var start = Date.realNow();
       thisWorker.onmessage({ data: duplicateJSON(msg) });
+      headlessPrint('main thread ' + workerPath + ' took ' + (Date.realNow() - start) + ' ms');
     });
   };
 };
