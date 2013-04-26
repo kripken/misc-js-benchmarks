@@ -5,7 +5,7 @@
 //== HEADLESS ==//
 
 var headlessPrint = function(x) {
-  print(x);
+  //print(x);
 }
 
 var window = {
@@ -21,6 +21,18 @@ var window = {
   //
 
   headless: true,
+  fakeWorkers: {
+    'crunch-worker.js': function(data, onmessage) {
+      onmessage({
+        data: {
+          filename: data.filename,
+          data: data.data,
+          callbackID: data.callbackID,
+          time: 0
+        }
+      });
+    }
+  },
 
   stopped: false,
   fakeNow: 0, // we don't use Date.now()
@@ -242,7 +254,11 @@ var Worker = function(workerPath) {
     window.setTimeout(function() {
       headlessPrint('worker ' + workerPath + ' receiving message ' + msg.messageId);
       var start = Date.realNow();
-      onmessage({ data: duplicateJSON(msg) });
+      if (workerPath in window.fakeWorkers) {
+        window.fakeWorkers[workerPath](msg, onmessage);
+      } else {
+        onmessage({ data: duplicateJSON(msg) });
+      }
       headlessPrint('worker ' + workerPath + ' took ' + (Date.realNow() - start) + ' ms');
     });
   };
