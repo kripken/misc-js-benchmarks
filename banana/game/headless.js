@@ -21,6 +21,8 @@ var window = {
   //
 
   headless: true,
+  useFakeWorkers: false, // affects determinism, so not comparable to non-headless builds
+
   fakeWorkers: {
     'crunch-worker.js': function(data, postMessage) {
       postMessage({
@@ -252,7 +254,7 @@ var Worker = function(workerPath) {
     window.setTimeout(function() {
       headlessPrint('worker ' + workerPath + ' receiving message ' + msg.messageId);
       var start = Date.realNow();
-      if (workerPath in window.fakeWorkers) {
+      if (window.useFakeWorkers && workerPath in window.fakeWorkers) {
         window.fakeWorkers[workerPath](msg, postMessage);
       } else {
         onmessage({ data: duplicateJSON(msg) });
