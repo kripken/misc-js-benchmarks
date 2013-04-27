@@ -42,9 +42,10 @@ var Module = {
     var arg = typeof commandlineArgs[0] == 'string' ? parseInt(commandlineArgs[0]) : -1;
     switch(arg) {
       case 0: return 1;
-      case 1: return 100;
-      case 2: return 400;
-      case 3: return 800;
+      case 1: return 50;
+      case 2: return 100;
+      case 3: return 400;
+      case 4: return 800;
       default: return 2000;
     }
   })(), iter: 0 } : null,
