@@ -21,6 +21,18 @@ var window = {
   //
 
   headless: true,
+  useFakeWorkers: false, // affects determinism, so not comparable to non-headless builds
+
+  fakeWorkers: {
+    'crunch-worker.js': function(data, postMessage) {
+      postMessage({
+        filename: data.filename,
+        data: data.data,
+        callbackID: data.callbackID,
+        time: 0
+      });
+    }
+  },
 
   stopped: false,
   fakeNow: 0, // we don't use Date.now()
@@ -241,7 +253,13 @@ var Worker = function(workerPath) {
     headlessPrint('main thread sending message ' + msg.messageId + ' to worker ' + workerPath);
     window.setTimeout(function() {
       headlessPrint('worker ' + workerPath + ' receiving message ' + msg.messageId);
-      onmessage({ data: duplicateJSON(msg) });
+      var start = Date.realNow();
+      if (window.useFakeWorkers && workerPath in window.fakeWorkers) {
+        window.fakeWorkers[workerPath](msg, postMessage);
+      } else {
+        onmessage({ data: duplicateJSON(msg) });
+      }
+      headlessPrint('worker ' + workerPath + ' took ' + (Date.realNow() - start) + ' ms');
     });
   };
   var thisWorker = this;
@@ -250,7 +268,9 @@ var Worker = function(workerPath) {
     headlessPrint('worker ' + workerPath + ' sending message ' + msg.messageId);
     window.setTimeout(function() {
       headlessPrint('main thread receiving message ' + msg.messageId + ' from ' + workerPath);
+      var start = Date.realNow();
       thisWorker.onmessage({ data: duplicateJSON(msg) });
+      headlessPrint('main thread ' + workerPath + ' took ' + (Date.realNow() - start) + ' ms');
     });
   };
 };

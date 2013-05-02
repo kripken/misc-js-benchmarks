@@ -12,8 +12,13 @@
           };
         })()
       };
+      var startTime = Date.now();
     </script>
-    <script src="test.js"></script>
+    <script src="bullet.js"></script>
+    <script>
+      Module.print('--------------');
+      Module.print('Total time of everything: ' + ((Date.now() - startTime)/1000));
+    </script>
   </body>
 </html>
 
