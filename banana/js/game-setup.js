@@ -47,7 +47,7 @@ var Module = {
       case 3: return 100;
       case 4: return 400;
       case 5: return 800;
-      default: return 2000;
+      default: return 1000;
     }
   })(), iter: 0 } : null,
   failed: false,
@@ -122,10 +122,12 @@ if (Module.benchmark) {
   Module.doNotCaptureKeyboard = true;
 
   Module.preRun.push(function() {
-    __ATMAIN__.push({ func: function() {
+    var main = Module._main;
+    Module._main = function() {
       Module.print('<< start startup >>');
       Module.startupStartTime = Date.realNow();
-    } });
+      return main.apply(null, arguments);
+    };
   });
 
   Module.benchmark.progressTick = Math.floor(Module.benchmark.totalIters / 100);
@@ -146,7 +148,7 @@ if (Module.benchmark) {
       Module.progressElement.value = iter; // TODO: check if this affects performance
     } else if (iter >= Module.benchmark.totalIters) {
       window.stopped = true;
-      Browser.mainLoop.pause();
+      Module.pauseMainLoop();
 
       // show results
       Module.canvas.classList.add('hide');
