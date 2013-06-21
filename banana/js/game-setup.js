@@ -33,13 +33,12 @@ if (checkPageParam('deterministic')) {
   })();
 }
 
-var commandlineArgs = (typeof arguments != 'undefined') ? arguments : [];
-
 var Module = {
   // If the url has 'serve' in it, run a listen server and let others connect to us
   arguments: checkPageParam('serve') ? ['-d1', '-j28780'] : [],
+//  benchmark: checkPageParam('benchmark') ? { totalIters: 2000, iter: 0 } : null,
   benchmark: checkPageParam('benchmark') ? { totalIters: (function() {
-    var arg = typeof commandlineArgs[0] == 'string' ? parseInt(commandlineArgs[0]) : -1;
+    var arg = (typeof commandlineArgs != 'undefined' && typeof commandlineArgs[0] == 'string') ? parseInt(commandlineArgs[0]) : -1;
     switch(arg) {
       case 0: return 1;
       case 1: return 20;
@@ -256,10 +255,12 @@ Module.setOpacity = function(opacity) {
   var more = 'border: 1px solid black';
   var styleSheet = document.styleSheets[0];
   var rules = styleSheet.cssRules;
-  for (var i = 0; i < rules.length; i++) {
-    if (rules[i].cssText.substr(0, rule.length) == rule) {
-      styleSheet.deleteRule(i);
-      i--;
+  if (rules) {
+    for (var i = 0; i < rules.length; i++) {
+      if (rules[i].cssText.substr(0, rule.length) == rule) {
+        styleSheet.deleteRule(i);
+        i--;
+      }
     }
   }
   styleSheet.insertRule(rule + ' { opacity: ' + opacity + '; ' + (more || '') + ' }', 0);
@@ -315,7 +316,7 @@ Module.postLoadWorld = function() {
     Module.fullscreenLow = function() {
       document.querySelector('.status-content.fullscreen-buttons').classList.add('hide');
       Module.canvas.classList.remove('hide');
-      Module.requestFullScreen();
+      Module.requestFullScreen(true);
       Module.setOpacity(1);
       Module.setStatus('');
       Module.resumeMainLoop();
@@ -325,7 +326,7 @@ Module.postLoadWorld = function() {
     Module.fullscreenHigh = function() {
       document.querySelector('.status-content.fullscreen-buttons').classList.add('hide');
       Module.canvas.classList.remove('hide');
-      Module.requestFullScreen();
+      Module.requestFullScreen(true);
       Module.setOpacity(1);
       Module.setStatus('');
       BananaBread.execute('screenres ' + screen.width + ' ' + screen.height);
@@ -584,7 +585,7 @@ function CameraPath(data) { // TODO: namespace this
             loadChildScript('game/preload_' + preload + '.js', function() {
               var scriptParts = ['bb'];
               if (checkPageParam('debug')) scriptParts.push('debug');
-              loadChildScript('game/' + scriptParts.join('.') + '.js');
+              loadChildScript(scriptParts.join('.') + '.js');
             });
           });
         });

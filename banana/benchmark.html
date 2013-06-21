@@ -28,15 +28,7 @@
       <div class="section">
         <div class="title">BananaBench - The Tastiest Browser Benchmark</div>
           <ul>
-            <li>BananaBench is a benchmark based on the BananaBread project. It tests JavaScript performance on a complete, real-world game engine. It can run in two modes:
-              <ul>
-                <li>
-                  Normal (press "Go!"): Tests both JavaScript and WebGL performance.
-                </li>
-                <li>
-                  Headless (press "Go Headless!"): Tests only JavaScript. This is the exact same benchmark as "Normal" (the bots do the exact same actions, etc.), but rendering is just not done.
-                </li>
-              </ul>
+            <li>BananaBench is a benchmark based on the BananaBread project. It tests JavaScript performance on a complete, real-world game engine. In addition it tests WebGL performance in non-headless mode.
             </li>
           </ul>
         </p>
@@ -45,14 +37,6 @@
 
     <script src='game/headlessCanvas.js'></script>
     <script>
-
-var realAudio = Audio;
-Audio = function() {
-  var ret = new realAudio();
-  ret.play = ret.pause = function(){ console.log('play|pause') };
-  ret.cloneNode = function() { console.log('clone'); return this };
-  return ret;
-}
 
 var pageParams = 'low,low,asm,windowed,benchmark,deterministic';
 
@@ -72,6 +56,13 @@ goButton.addEventListener('click', function(e) {
   window.requestAnimationFrame = function(x) {
     setTimeout(x, 1);
   };
+  var realAudio = Audio;
+  Audio = function() {
+    var ret = new realAudio();
+    ret.play = ret.pause = function(){ console.log('play|pause') };
+    ret.cloneNode = function() { console.log('clone'); return this };
+    return ret;
+  }
 
   document.querySelector('.status-content.fullscreen-buttons').classList.add('hide');
   document.getElementById('main_text').classList.remove('hide');
