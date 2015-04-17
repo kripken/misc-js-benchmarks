@@ -178,9 +178,18 @@ if (Module.benchmark) {
 (function() {
   function fail(text) {
     Module._main = null;
-    document.querySelector('.status-content.error .details').innerHTML = text + ' is missing.';
-    document.querySelector('.status-content.loading .progress-container').classList.add('hide');
-    document.querySelector('.status-content.error').classList.remove('hide');
+    var element = document.querySelector('.status-content.error .details');
+    if (element) {
+      element.innerHTML = text + ' is missing.';
+    }
+    element = document.querySelector('.status-content.error');
+    if (element) {
+      element.classList.remove('hide');
+    }
+    element = document.querySelector('.status-content.loading .progress-container');
+    if (element) {
+      element.classList.add('hide');
+    }
     Module.failed = true;
   }
   if (checkPageParam('headlessCanvas')) return;
@@ -199,7 +208,10 @@ if (Module.benchmark) {
   var pointerLock = canvas['requestPointerLock'] ||
                     canvas['mozRequestPointerLock'] ||
                     canvas['webkitRequestPointerLock'];
-  if (!pointerLock) fail('pointer lock/mouse lock');
+  if (!pointerLock) {
+    canvas.requestPointerLock = document.exitPointerLock = function() {};
+    document.pointerLockElement = document;
+  }
 })();
 
 // Loading music. Will be stopped once the first frame of the game runs
