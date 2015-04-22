@@ -15,24 +15,13 @@ var window = {
       return 'game.html?low,low,asm,benchmark,deterministic';
     },
     search: '?low,low,asm,benchmark,deterministic',
+    pathname: 'game.html',
   },
   onIdle: function(){ headlessPrint('triggering click'); document.querySelector('.fullscreen-button.low-res').callEventListeners('click'); window.onIdle = null; },
   dirsToDrop: 0, // go back to root dir if first_js is in a subdir
   //
 
   headless: true,
-  useFakeWorkers: false, // affects determinism, so not comparable to non-headless builds
-
-  fakeWorkers: {
-    'crunch-worker.js': function(data, postMessage) {
-      postMessage({
-        filename: data.filename,
-        data: data.data,
-        callbackID: data.callbackID,
-        time: 0
-      });
-    }
-  },
 
   stopped: false,
   fakeNow: 0, // we don't use Date.now()
@@ -88,16 +77,6 @@ var window = {
       headlessPrint('main event loop iteration took ' + (Date.realNow() - start) + ' ms');
     }
   },
-  URL: {
-    createObjectURL: function(x) {
-      return x; // the blob itself is returned
-    },
-    revokeObjectURL: function(x) {},
-  },
-};
-var setTimeout = window.setTimeout;
-var document = {
-  headless: true,
   eventListeners: {},
   addEventListener: function(id, func) {
     var listeners = this.eventListeners[id];
@@ -106,12 +85,37 @@ var document = {
     }
     listeners.push(func);
   },
+  removeEventListener: function(id, func) {
+    var listeners = this.eventListeners[id];
+    if (!listeners) return;
+    for (var i = 0; i < listeners.length; i++) {
+      if (listeners[i] === func) {
+        listeners.splice(i, 1);
+        return;
+      }
+    }
+  },
   callEventListeners: function(id) {
     var listeners = this.eventListeners[id];
     if (listeners) {
       listeners.forEach(function(listener) { listener() });
     }
   },
+  URL: {
+    createObjectURL: function(x) {
+      return x; // the blob itself is returned
+    },
+    revokeObjectURL: function(x) {},
+  },
+  encodeURIComponent: function(x) { return x },
+};
+var setTimeout = window.setTimeout;
+var document = {
+  headless: true,
+  eventListeners: {},
+  addEventListener: window.addEventListener,
+  removeEventListener: window.removeEventListener,
+  callEventListeners: window.callEventListeners,
   getElementById: function(id) {
     switch(id) {
       case 'canvas': {
@@ -154,6 +158,7 @@ var document = {
         },
         eventListeners: {},
         addEventListener: document.addEventListener,
+        removeEventListener: document.removeEventListener,
         callEventListeners: document.callEventListeners,
       };
     };
@@ -253,13 +258,7 @@ var Worker = function(workerPath) {
     headlessPrint('main thread sending message ' + msg.messageId + ' to worker ' + workerPath);
     window.setTimeout(function() {
       headlessPrint('worker ' + workerPath + ' receiving message ' + msg.messageId);
-      var start = Date.realNow();
-      if (window.useFakeWorkers && workerPath in window.fakeWorkers) {
-        window.fakeWorkers[workerPath](msg, postMessage);
-      } else {
-        onmessage({ data: duplicateJSON(msg) });
-      }
-      headlessPrint('worker ' + workerPath + ' took ' + (Date.realNow() - start) + ' ms');
+      onmessage({ data: duplicateJSON(msg) });
     });
   };
   var thisWorker = this;
@@ -268,9 +267,7 @@ var Worker = function(workerPath) {
     headlessPrint('worker ' + workerPath + ' sending message ' + msg.messageId);
     window.setTimeout(function() {
       headlessPrint('main thread receiving message ' + msg.messageId + ' from ' + workerPath);
-      var start = Date.realNow();
       thisWorker.onmessage({ data: duplicateJSON(msg) });
-      headlessPrint('main thread ' + workerPath + ' took ' + (Date.realNow() - start) + ' ms');
     });
   };
 };
